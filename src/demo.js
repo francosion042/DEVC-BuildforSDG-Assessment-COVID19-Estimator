@@ -1,3 +1,3 @@
-const flo = 22.3;
+const flo = 22;
 
-console.log(Math.floor(flo));
+console.log(flo.toFixed(2));
