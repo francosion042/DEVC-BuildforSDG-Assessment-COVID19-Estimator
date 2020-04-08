@@ -1,70 +1,20 @@
 const { Big } = require('big.js');
+const { infectionsByRequestedTime, dollarsInFlight, hospitalBedsByRequestedTime } = require('./helpers');
 
-// const infectionsByRequestedTime = require('./infectionsByRequestedTime');
-
-// const dollarsInFlight = require('./dollarsInFlight');
-
-const hospitalBedsByRequestedTime = require('./hospitalBedsByRequestedTime');
-
-const severeCasesByRequestedTime = ((time) => Math.round(time * 0.15));
+const severeCasesByRequestedTime = ((time) => time * 0.15);
 
 const casesForICUByRequestedTime = ((time) => time * 0.05);
 
 const casesForVentilatorsByRequestedTime = ((time) => time * 0.02);
 
-const infectionsByRequestedTime = (data, currentlyInfected) => {
-  let infections = null;
-  const period = Big(data.timeToElapse);
-  let periodInDays;
-  let unitPeriod;
-  switch (data.periodType) {
-    case 'weeks':
-      periodInDays = period * 7;
-      unitPeriod = Math.floor(periodInDays / 3);
-      infections = currentlyInfected * (2 ** unitPeriod);
-      break;
-    case 'months':
-      periodInDays = period * 30;
-      unitPeriod = Math.floor(periodInDays / 3);
-      infections = currentlyInfected * (2 ** unitPeriod);
-      break;
-    default:
-      unitPeriod = Math.floor(period / 3);
-      infections = currentlyInfected * (2 ** unitPeriod);
-      break;
-  }
-  return infections;
-};
-
-const dollarsInFlight = (data, infections) => {
-  let totalDollars;
-  let timeInDays;
-  const { avgDailyIncomePopulation } = data.region;
-  const { avgDailyIncomeInUSD } = data.region;
-  switch (data.periodType) {
-    case 'weeks':
-      timeInDays = data.timeToElapse * 7;
-      totalDollars = infections * avgDailyIncomePopulation * avgDailyIncomeInUSD * timeInDays;
-      break;
-    case 'months':
-      timeInDays = data.timeToElapse * 30;
-      totalDollars = infections * avgDailyIncomePopulation * avgDailyIncomeInUSD * timeInDays;
-      break;
-    default:
-      timeInDays = data.timeToElapse;
-      totalDollars = infections * avgDailyIncomePopulation * avgDailyIncomeInUSD * timeInDays;
-      break;
-  }
-  return parseFloat(totalDollars.toFixed(2));
-};
 
 const covid19ImpactEstimator = ((data) => {
   const impact = {};
   const severeImpact = {};
   const reportedCases = Big(data.reportedCases);
 
-  impact.currentlyInfected = reportedCases * Big(10);
-  severeImpact.currentlyInfected = reportedCases * Big(50);
+  impact.currentlyInfected = reportedCases * 10;
+  severeImpact.currentlyInfected = reportedCases * 50;
 
   const iCurrentlyInfected = Big(impact.currentlyInfected);
   impact.infectionsByRequestedTime = infectionsByRequestedTime(data, iCurrentlyInfected);
