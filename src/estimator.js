@@ -2,7 +2,7 @@ const { Big } = require('big.js');
 
 const infectionsByRequestedTime = require('./infectionsByRequestedTime');
 
-const dollarsInFlight = require('./dollarsInFlight');
+// const dollarsInFlight = require('./dollarsInFlight');
 
 const hospitalBedsByRequestedTime = require('./hospitalBedsByRequestedTime');
 
@@ -11,6 +11,28 @@ const severeCasesByRequestedTime = ((time) => Math.round(time * 0.15));
 const casesForICUByRequestedTime = ((time) => time * 0.05);
 
 const casesForVentilatorsByRequestedTime = ((time) => time * 0.02);
+
+const dollarsInFlight = (data, infections) => {
+  let totalDollars;
+  let timeInDays;
+  const { avgDailyIncomePopulation } = data.region;
+  const { avgDailyIncomeInUSD } = data.region;
+  switch (data.periodType) {
+    case 'weeks':
+      timeInDays = data.timeToElapse * 7;
+      totalDollars = infections * avgDailyIncomePopulation * avgDailyIncomeInUSD * timeInDays;
+      break;
+    case 'months':
+      timeInDays = data.timeToElapse * 30;
+      totalDollars = infections * avgDailyIncomePopulation * avgDailyIncomeInUSD * timeInDays;
+      break;
+    default:
+      timeInDays = data.timeToElapse;
+      totalDollars = infections * avgDailyIncomePopulation * avgDailyIncomeInUSD * timeInDays;
+      break;
+  }
+  return parseFloat(totalDollars.toFixed(2));
+};
 
 const covid19ImpactEstimator = ((data) => {
   const impact = {};
