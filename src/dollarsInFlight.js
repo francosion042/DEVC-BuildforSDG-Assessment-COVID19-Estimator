@@ -17,9 +17,7 @@ const dollarsInFlight = (data, infections) => {
       totalDollars = infections * avgDailyIncomePopulation * avgDailyIncomeInUSD * timeInDays;
       break;
   }
-  const dollars = totalDollars.toFixed(2);
-
-  return parseFloat(dollars);
+  return parseFloat(totalDollars.toFixed(2));
 };
 
 module.exports = dollarsInFlight;
