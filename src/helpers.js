@@ -1,27 +1,23 @@
-const { Big } = require('big.js');
+// const { Big } = require('big.js');
+const calculateEstimatedInfectionsByDays = (periodInDays, currentlyInfected) => {
+  const unitPeriod = Math.floor(periodInDays / 3);
+  return currentlyInfected * (2 ** unitPeriod);
+};
 
+// eslint-disable-next-line consistent-return
 const infectionsByRequestedTime = (data, currentlyInfected) => {
-  let infections = null;
-  const period = Big(data.timeToElapse);
+  const period = data.timeToElapse;
   let periodInDays;
-  let unitPeriod;
   switch (data.periodType) {
     case 'weeks':
       periodInDays = period * 7;
-      unitPeriod = Math.floor(periodInDays / 3);
-      infections = currentlyInfected * (2 ** unitPeriod);
-      break;
+      return calculateEstimatedInfectionsByDays(periodInDays, currentlyInfected);
     case 'months':
       periodInDays = period * 30;
-      unitPeriod = Math.floor(periodInDays / 3);
-      infections = currentlyInfected * (2 ** unitPeriod);
-      break;
+      return calculateEstimatedInfectionsByDays(periodInDays, currentlyInfected);
     default:
-      unitPeriod = Math.floor(period / 3);
-      infections = currentlyInfected * (2 ** unitPeriod);
-      break;
+      return currentlyInfected * (2 ** Math.floor(period / 3));
   }
-  return infections;
 };
 
 const dollarsInFlight = (data, infections) => {
