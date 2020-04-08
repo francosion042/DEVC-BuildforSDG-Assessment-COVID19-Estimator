@@ -1,4 +1,4 @@
-import Big from 'big.js';
+const { Big } = require('big.js');
 
 const infectionsByRequestedTime = (data, currentlyInfected) => {
   let infections = null;
@@ -24,4 +24,4 @@ const infectionsByRequestedTime = (data, currentlyInfected) => {
   return infections;
 };
 
-export default infectionsByRequestedTime;
+module.exports = infectionsByRequestedTime;

@@ -20,4 +20,4 @@ const dollarsInFlight = (data, infections) => {
   return totalDollars;
 };
 
-export default dollarsInFlight;
+module.exports = dollarsInFlight;

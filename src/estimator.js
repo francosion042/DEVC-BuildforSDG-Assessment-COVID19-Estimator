@@ -1,20 +1,16 @@
-import Big from 'big.js';
-import infectionsByRequestedTime from './infectionsByRequestedTime';
-import dollarsInFlight from './dollarsInFlight';
+const { Big } = require('big.js');
 
-const severeCasesByRequestedTime = ((time) => Math.round(time * 0.15)
-);
+const infectionsByRequestedTime = require('./infectionsByRequestedTime');
 
-const casesForICUByRequestedTime = ((time) => time * 0.05
-);
+const dollarsInFlight = require('./dollarsInFlight');
 
-const casesForVentilatorsByRequestedTime = ((time) => time * 0.02
-);
+const hospitalBedsByRequestedTime = require('./hospitalBedsByRequestedTime');
 
-const hospitalBedsByRequestedTime = (data, severeCases) => {
-  const availableBeds = data.totalHospitalBeds * 0.35;
-  return availableBeds - severeCases;
-};
+const severeCasesByRequestedTime = ((time) => Math.round(time * 0.15));
+
+const casesForICUByRequestedTime = ((time) => time * 0.05);
+
+const casesForVentilatorsByRequestedTime = ((time) => time * 0.02);
 
 const covid19ImpactEstimator = ((data) => {
   const impact = {};
@@ -54,4 +50,4 @@ const covid19ImpactEstimator = ((data) => {
   return { data, impact, severeImpact };
 });
 
-export default covid19ImpactEstimator;
+module.exports = covid19ImpactEstimator;
