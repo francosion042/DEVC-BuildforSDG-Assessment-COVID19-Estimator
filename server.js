@@ -36,15 +36,15 @@ app.post('/api/v1/on-covid-19/json', (req, res) => {
 });
 
 app.post('/api/v1/on-covid-19/xml', (req, res) => {
-  const inpData = {};
-  inpData.region = req.body.region;
-  inpData.periodType = req.body.periodType;
-  inpData.timeToElapse = req.body.timeToElapse;
-  inpData.reportedCases = req.body.reportedCases;
-  inpData.population = req.body.population;
-  inpData.totalHospitalBeds = req.body.totalHospitalBeds;
+  const data = {};
+  data.region = req.body.region;
+  data.periodType = req.body.periodType;
+  data.timeToElapse = req.body.timeToElapse;
+  data.reportedCases = req.body.reportedCases;
+  data.population = req.body.population;
+  data.totalHospitalBeds = req.body.totalHospitalBeds;
 
-  res.send(jsontoxml(covid19ImpactEstimator(inpData)));
+  res.send(jsontoxml(covid19ImpactEstimator(data)));
 });
 
 const PORT = process.env.PORT || 3000;
