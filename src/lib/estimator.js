@@ -25,9 +25,7 @@ class Estimator {
       return xmlElement;
     };
 
-    const xmlString = xml({ root: createXML(this.estimate) });
-
-    return xmlString;
+    return xml({ root: createXML(this.estimate) });
   }
 }
 

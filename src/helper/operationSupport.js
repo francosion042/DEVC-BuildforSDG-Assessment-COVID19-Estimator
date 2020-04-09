@@ -13,6 +13,7 @@ const toServerLog = (logInput) => {
   fs.appendFile(`./logs/request-response/${getLogDate()}.txt`, line, (err) => {
     if (err) {
       // throw err;
+      // eslint-disable-next-line no-console
       console.log(err);
     }
   });
@@ -23,8 +24,8 @@ const getDuration = (start) => {
 
   // in milliseconds
   return (
-    (duration[0] * nanosecondsInASecond + duration[1]) /
-    nanosecondsInAMillisecond
+    (duration[0] * nanosecondsInASecond + duration[1])
+    / nanosecondsInAMillisecond
   );
 };
 
