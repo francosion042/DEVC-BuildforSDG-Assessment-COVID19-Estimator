@@ -42,7 +42,7 @@ const dollarsInFlight = (data, infections) => {
 };
 
 const hospitalBedsByRequestedTime = (data, severeCases) => {
-  const availableBeds = data.totalHospitalBeds * 0.35;
+  const availableBeds = Math.floor(data.totalHospitalBeds * 0.35);
   return availableBeds - severeCases;
 };
 module.exports = { infectionsByRequestedTime, dollarsInFlight, hospitalBedsByRequestedTime };
