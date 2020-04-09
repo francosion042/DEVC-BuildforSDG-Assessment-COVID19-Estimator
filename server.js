@@ -19,7 +19,6 @@ app.post('/api/v1/on-covid-19', (req, res) => {
   data.reportedCases = req.body.reportedCases;
   data.population = req.body.population;
   data.totalHospitalBeds = req.body.totalHospitalBeds;
-  console.log(data);
   res.send(covid19ImpactEstimator(data));
 });
 
@@ -31,7 +30,6 @@ app.post('/api/v1/on-covid-19/json', (req, res) => {
   data.reportedCases = req.body.reportedCases;
   data.population = req.body.population;
   data.totalHospitalBeds = req.body.totalHospitalBeds;
-  console.log(data);
   res.send(covid19ImpactEstimator(data));
 });
 

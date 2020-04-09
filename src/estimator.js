@@ -2,7 +2,7 @@
 
 const { infectionsByRequestedTime, dollarsInFlight, hospitalBedsByRequestedTime } = require('./helpers');
 
-const severeCasesByRequestedTime = ((time) => Math.floor(time * 0.15));
+const severeCasesByRequestedTime = ((time) => time * 0.15);
 
 const casesForICUByRequestedTime = ((time) => time * 0.05);
 
@@ -50,11 +50,11 @@ const covid19ImpactEstimator = ((data) => {
   // eslint-disable-next-line max-len
   severeImpact.casesForVentilatorsByRequestedTime = Math.floor(casesForVentilatorsByRequestedTime(infections));
 
-  infections = Math.floor(impact.infectionsByRequestedTime);
-  impact.dollarsInFlight = Number(dollarsInFlight(data, infections));
+  infections = impact.infectionsByRequestedTime;
+  impact.dollarsInFlight = dollarsInFlight(data, infections);
 
-  infections = Math.floor(severeImpact.infectionsByRequestedTime);
-  severeImpact.dollarsInFlight = Number(dollarsInFlight(data, infections));
+  infections = severeImpact.infectionsByRequestedTime;
+  severeImpact.dollarsInFlight = dollarsInFlight(data, infections);
   return { data, impact, severeImpact };
 });
 
