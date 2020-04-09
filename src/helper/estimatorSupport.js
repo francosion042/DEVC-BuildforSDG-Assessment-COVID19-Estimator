@@ -19,8 +19,7 @@ const { days, weeks, months } = constants;
  *
  * @param {number} reportedCases - the number of reportedCases
  */
-const getImpactCurrentlyInfected = (reportedCases) =>
-  reportedCases * bestCaseInfectionsMultiplier;
+const getImpactCurrentlyInfected = (reportedCases) => reportedCases * bestCaseInfectionsMultiplier;
 
 /**
  * Optimization
@@ -29,8 +28,7 @@ const getImpactCurrentlyInfected = (reportedCases) =>
  *
  * @param {number} reportedCases - the number of reportedCases
  */
-const getSevereCurrentlyInfected = (reportedCases) =>
-  reportedCases * worstCaseInfectionsMultiplier;
+const getSevereCurrentlyInfected = (reportedCases) => reportedCases * worstCaseInfectionsMultiplier;
 
 /**
  * Calculates the total period in days
@@ -61,19 +59,16 @@ const getInfectionsByRequestedTime = (currentlyInfected, period) => {
   return currentlyInfected * 2 ** factor;
 };
 
-const getSevereCasesCount = (numberOfInfections) =>
-  Math.floor(numberOfInfections * 0.15);
+const getSevereCasesCount = (numberOfInfections) => Math.floor(numberOfInfections * 0.15);
 
 const getRemainingHospitalBedsCount = (numberOfSevereCases, totalBeds) => {
   const availableBeds = totalBeds * 0.35;
   return Math.trunc(availableBeds - numberOfSevereCases);
 };
 
-const getCasesForICUCount = (numberOfInfections) =>
-  Math.floor(numberOfInfections * 0.05);
+const getCasesForICUCount = (numberOfInfections) => Math.floor(numberOfInfections * 0.05);
 
-const getCasesForVentilatorsCount = (numberOfInfections) =>
-  Math.floor(numberOfInfections * 0.02);
+const getCasesForVentilatorsCount = (numberOfInfections) => Math.floor(numberOfInfections * 0.02);
 
 const getDollarsInFlight = (
   numberOfInfections,
@@ -81,11 +76,10 @@ const getDollarsInFlight = (
   avgDailyIncome,
   period
 ) => {
-  const result =
-    numberOfInfections *
-    avgIncomePopulationPercentage *
-    avgDailyIncome *
-    period;
+  const result = numberOfInfections
+    * avgIncomePopulationPercentage
+    * avgDailyIncome
+    * period;
   return Number(result.toFixed(2));
 };
 
