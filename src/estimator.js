@@ -2,11 +2,11 @@
 
 const { infectionsByRequestedTime, dollarsInFlight, hospitalBedsByRequestedTime } = require('./helpers');
 
-const severeCasesByRequestedTime = ((time) => time * 0.15);
+const severeCasesByRequestedTime = ((cases) => Math.floor(cases * 0.15));
 
-const casesForICUByRequestedTime = ((time) => time * 0.05);
+const casesForICUByRequestedTime = ((cases) => Math.floor(cases * 0.05));
 
-const casesForVentilatorsByRequestedTime = ((time) => time * 0.02);
+const casesForVentilatorsByRequestedTime = ((cases) => Math.floor(cases * 0.02));
 
 
 const covid19ImpactEstimator = ((data) => {
@@ -19,36 +19,36 @@ const covid19ImpactEstimator = ((data) => {
 
   const iCurrentlyInfected = impact.currentlyInfected;
   // eslint-disable-next-line max-len
-  impact.infectionsByRequestedTime = Math.floor(infectionsByRequestedTime(data, iCurrentlyInfected));
+  impact.infectionsByRequestedTime = infectionsByRequestedTime(data, iCurrentlyInfected);
   const siCurrentlyInfected = severeImpact.currentlyInfected;
   // eslint-disable-next-line max-len
-  severeImpact.infectionsByRequestedTime = Math.floor(infectionsByRequestedTime(data, siCurrentlyInfected));
+  severeImpact.infectionsByRequestedTime = infectionsByRequestedTime(data, siCurrentlyInfected);
 
   // eslint-disable-next-line max-len
-  impact.severeCasesByRequestedTime = Math.floor(severeCasesByRequestedTime(impact.infectionsByRequestedTime));
+  impact.severeCasesByRequestedTime = severeCasesByRequestedTime(impact.infectionsByRequestedTime);
   let infections = severeImpact.infectionsByRequestedTime;
-  severeImpact.severeCasesByRequestedTime = Math.floor(severeCasesByRequestedTime(infections));
+  severeImpact.severeCasesByRequestedTime = severeCasesByRequestedTime(infections);
 
   const siSevereCases = severeImpact.severeCasesByRequestedTime;
   const iSevereCases = impact.severeCasesByRequestedTime;
-  impact.hospitalBedsByRequestedTime = Math.floor(hospitalBedsByRequestedTime(data, iSevereCases));
+  impact.hospitalBedsByRequestedTime = hospitalBedsByRequestedTime(data, iSevereCases);
   // eslint-disable-next-line max-len
-  severeImpact.hospitalBedsByRequestedTime = Math.floor(hospitalBedsByRequestedTime(data, siSevereCases));
+  severeImpact.hospitalBedsByRequestedTime = hospitalBedsByRequestedTime(data, siSevereCases);
 
 
   // eslint-disable-next-line max-len
-  impact.casesForICUByRequestedTime = Math.floor(casesForICUByRequestedTime(impact.infectionsByRequestedTime));
-  infections = Math.floor(severeImpact.infectionsByRequestedTime);
-  severeImpact.casesForICUByRequestedTime = Math.floor(casesForICUByRequestedTime(infections));
+  impact.casesForICUByRequestedTime = casesForICUByRequestedTime(impact.infectionsByRequestedTime);
+  infections = severeImpact.infectionsByRequestedTime;
+  severeImpact.casesForICUByRequestedTime = casesForICUByRequestedTime(infections);
 
-  infections = Math.floor(impact.infectionsByRequestedTime);
+  infections = impact.infectionsByRequestedTime;
   // eslint-disable-next-line max-len
-  impact.casesForVentilatorsByRequestedTime = Math.floor(casesForVentilatorsByRequestedTime(infections));
+  impact.casesForVentilatorsByRequestedTime = casesForVentilatorsByRequestedTime(infections);
 
 
-  infections = Math.floor(severeImpact.infectionsByRequestedTime);
+  infections = severeImpact.infectionsByRequestedTime;
   // eslint-disable-next-line max-len
-  severeImpact.casesForVentilatorsByRequestedTime = Math.floor(casesForVentilatorsByRequestedTime(infections));
+  severeImpact.casesForVentilatorsByRequestedTime = casesForVentilatorsByRequestedTime(infections);
 
   infections = impact.infectionsByRequestedTime;
   impact.dollarsInFlight = dollarsInFlight(data, infections);
