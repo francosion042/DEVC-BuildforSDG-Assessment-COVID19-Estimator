@@ -38,11 +38,11 @@ const dollarsInFlight = (data, infections) => {
       totalDollars = infections * avgDailyIncomePopulation * avgDailyIncomeInUSD * timeInDays;
       break;
   }
-  return totalDollars.toFixed(2);
+  return Number(totalDollars.toFixed(2));
 };
 
 const hospitalBedsByRequestedTime = (data, severeCases) => {
   const availableBeds = data.totalHospitalBeds * 0.35;
-  return availableBeds - severeCases;
+  return Math.trunc(availableBeds - severeCases);
 };
 module.exports = { infectionsByRequestedTime, dollarsInFlight, hospitalBedsByRequestedTime };
