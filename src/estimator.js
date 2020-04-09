@@ -2,7 +2,7 @@
 
 const { infectionsByRequestedTime, dollarsInFlight, hospitalBedsByRequestedTime } = require('./helpers');
 
-const severeCasesByRequestedTime = ((time) => time * 0.15);
+const severeCasesByRequestedTime = ((time) => Math.floor(time * 0.15));
 
 const casesForICUByRequestedTime = ((time) => time * 0.05);
 
