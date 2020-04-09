@@ -6,17 +6,22 @@ const calculateEstimatedInfectionsByDays = (periodInDays, currentlyInfected) => 
 // eslint-disable-next-line consistent-return
 const infectionsByRequestedTime = (data, currentlyInfected) => {
   const period = data.timeToElapse;
+  let result;
   let periodInDays;
   switch (data.periodType) {
     case 'weeks':
       periodInDays = period * 7;
-      return calculateEstimatedInfectionsByDays(periodInDays, currentlyInfected);
+      result = calculateEstimatedInfectionsByDays(periodInDays, currentlyInfected);
+      break;
     case 'months':
       periodInDays = period * 30;
-      return calculateEstimatedInfectionsByDays(periodInDays, currentlyInfected);
+      result = calculateEstimatedInfectionsByDays(periodInDays, currentlyInfected);
+      break;
     default:
-      return currentlyInfected * (2 ** period / 3);
+      result = currentlyInfected * (2 ** period / 3);
+      break;
   }
+  return Math.floor(result);
 };
 
 const dollarsInFlight = (data, infections) => {
