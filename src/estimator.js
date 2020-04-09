@@ -44,13 +44,15 @@ const covid19ImpactEstimator = ((data) => {
   infections = Math.floor(impact.infectionsByRequestedTime);
   // eslint-disable-next-line max-len
   impact.casesForVentilatorsByRequestedTime = Math.floor(casesForVentilatorsByRequestedTime(infections));
-  Math.floor(infections = severeImpact.infectionsByRequestedTime);
 
+
+  infections = Math.floor(severeImpact.infectionsByRequestedTime);
   // eslint-disable-next-line max-len
   severeImpact.casesForVentilatorsByRequestedTime = Math.floor(casesForVentilatorsByRequestedTime(infections));
 
   infections = Math.floor(impact.infectionsByRequestedTime);
   impact.dollarsInFlight = Number(dollarsInFlight(data, infections));
+
   infections = Math.floor(severeImpact.infectionsByRequestedTime);
   severeImpact.dollarsInFlight = Number(dollarsInFlight(data, infections));
   return { data, impact, severeImpact };
