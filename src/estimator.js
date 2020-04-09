@@ -4,9 +4,9 @@ const { infectionsByRequestedTime, dollarsInFlight, hospitalBedsByRequestedTime 
 
 const severeCasesByRequestedTime = ((cases) => Math.floor(cases * 0.15));
 
-const casesForICUByRequestedTime = ((cases) => Math.floor((cases / 100) * 5));
+const casesForICUByRequestedTime = ((cases) => Math.floor(cases * 0.5));
 
-const casesForVentilatorsByRequestedTime = ((cases) => Math.floor((cases / 100) * 2));
+const casesForVentilatorsByRequestedTime = ((cases) => Math.floor(cases * 0.2));
 
 
 const covid19ImpactEstimator = ((data) => {
