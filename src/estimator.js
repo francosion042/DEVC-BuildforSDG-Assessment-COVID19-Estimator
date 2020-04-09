@@ -28,23 +28,27 @@ const covid19ImpactEstimator = ((data) => {
 
   const siSevereCases = severeImpact.severeCasesByRequestedTime;
   const iSevereCases = impact.severeCasesByRequestedTime;
-  impact.hospitalBedsByRequestedTime = hospitalBedsByRequestedTime(data, iSevereCases);
-  severeImpact.hospitalBedsByRequestedTime = hospitalBedsByRequestedTime(data, siSevereCases);
+  impact.hospitalBedsByRequestedTime = Math.floor(hospitalBedsByRequestedTime(data, iSevereCases));
+  // eslint-disable-next-line max-len
+  severeImpact.hospitalBedsByRequestedTime = Math.floor(hospitalBedsByRequestedTime(data, siSevereCases));
 
 
-  impact.casesForICUByRequestedTime = casesForICUByRequestedTime(impact.infectionsByRequestedTime);
-  infections = severeImpact.infectionsByRequestedTime;
-  severeImpact.casesForICUByRequestedTime = casesForICUByRequestedTime(infections);
+  // eslint-disable-next-line max-len
+  impact.casesForICUByRequestedTime = Math.floor(casesForICUByRequestedTime(impact.infectionsByRequestedTime));
+  infections = Math.floor(severeImpact.infectionsByRequestedTime);
+  severeImpact.casesForICUByRequestedTime = Math.floor(casesForICUByRequestedTime(infections));
 
-  infections = impact.infectionsByRequestedTime;
-  impact.casesForVentilatorsByRequestedTime = casesForVentilatorsByRequestedTime(infections);
-  infections = severeImpact.infectionsByRequestedTime;
+  infections = Math.floor(impact.infectionsByRequestedTime);
+  // eslint-disable-next-line max-len
+  impact.casesForVentilatorsByRequestedTime = Math.floor(casesForVentilatorsByRequestedTime(infections));
+  Math.floor(infections = severeImpact.infectionsByRequestedTime);
 
-  severeImpact.casesForVentilatorsByRequestedTime = casesForVentilatorsByRequestedTime(infections);
+  // eslint-disable-next-line max-len
+  severeImpact.casesForVentilatorsByRequestedTime = Math.floor(casesForVentilatorsByRequestedTime(infections));
 
-  infections = impact.infectionsByRequestedTime;
+  infections = Math.floor(impact.infectionsByRequestedTime);
   impact.dollarsInFlight = Number(dollarsInFlight(data, infections));
-  infections = severeImpact.infectionsByRequestedTime;
+  infections = Math.floor(severeImpact.infectionsByRequestedTime);
   severeImpact.dollarsInFlight = Number(dollarsInFlight(data, infections));
   return { data, impact, severeImpact };
 });
