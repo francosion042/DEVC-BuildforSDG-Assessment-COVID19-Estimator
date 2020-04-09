@@ -1,4 +1,3 @@
-// const { Big } = require('big.js');
 const calculateEstimatedInfectionsByDays = (periodInDays, currentlyInfected) => {
   const unitPeriod = Math.floor(periodInDays / 3);
   return currentlyInfected * (2 ** unitPeriod);
