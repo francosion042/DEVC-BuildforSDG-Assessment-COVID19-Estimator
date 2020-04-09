@@ -1,5 +1,5 @@
 const calculateEstimatedInfectionsByDays = (periodInDays, currentlyInfected) => {
-  const unitPeriod = periodInDays / 3;
+  const unitPeriod = Math.floor(periodInDays / 3);
   return currentlyInfected * (2 ** unitPeriod);
 };
 
@@ -18,10 +18,10 @@ const infectionsByRequestedTime = (data, currentlyInfected) => {
       result = calculateEstimatedInfectionsByDays(periodInDays, currentlyInfected);
       break;
     default:
-      result = currentlyInfected * (2 ** period / 3);
+      result = currentlyInfected * (2 ** Math.floor(period / 3));
       break;
   }
-  return Math.floor(result);
+  return result;
 };
 
 const dollarsInFlight = (data, infections) => {
