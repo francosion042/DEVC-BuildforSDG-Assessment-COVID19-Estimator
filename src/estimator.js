@@ -22,9 +22,10 @@ const covid19ImpactEstimator = ((data) => {
   const siCurrentlyInfected = severeImpact.currentlyInfected;
   severeImpact.infectionsByRequestedTime = infectionsByRequestedTime(data, siCurrentlyInfected);
 
-  impact.severeCasesByRequestedTime = severeCasesByRequestedTime(impact.infectionsByRequestedTime);
+  // eslint-disable-next-line max-len
+  impact.severeCasesByRequestedTime = Math.floor(severeCasesByRequestedTime(impact.infectionsByRequestedTime));
   let infections = severeImpact.infectionsByRequestedTime;
-  severeImpact.severeCasesByRequestedTime = severeCasesByRequestedTime(infections);
+  severeImpact.severeCasesByRequestedTime = Math.floor(severeCasesByRequestedTime(infections));
 
   const siSevereCases = severeImpact.severeCasesByRequestedTime;
   const iSevereCases = impact.severeCasesByRequestedTime;
