@@ -15,3 +15,6 @@ POST		/api/v1/on-covid-19/json		200		0.013 ms
 POST		/api/v1/on-covid-19/json		200		0.016 ms
 POST		/api/v1/on-covid-19/json		200		0.079 ms
 POST		/api/v1/on-covid-19/json		200		0.079 ms
+POST		/api/v1/on-covid-19/json		200		0.076 ms
+POST		/api/v1/on-covid-19/json		200		0.014 ms
+POST		/api/v1/on-covid-19/json		200		0.012 ms

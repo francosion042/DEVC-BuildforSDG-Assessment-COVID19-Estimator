@@ -48,6 +48,7 @@ const impactEstimator = (
     numberOfDays
   );
   const severeCasesByRequestedTime = 0.15 * infectionsByRequestedTime;
+  const casesForVentilatorsByTime = Math.floor(0.02 * infectionsByRequestedTime);
 
   return {
     currentlyInfected,
@@ -58,7 +59,7 @@ const impactEstimator = (
       severeCasesByRequestedTime
     ),
     casesForICUByRequestedTime: Math.trunc(0.05 * infectionsByRequestedTime),
-    casesForVentilatorsByRequestedTime: Math.floor(0.02 * infectionsByRequestedTime),
+    casesForVentilatorsByRequestedTime: casesForVentilatorsByTime,
     dollarsInFlight: moneyLost(
       infectionsByRequestedTime,
       region.avgDailyIncomePopulation,
