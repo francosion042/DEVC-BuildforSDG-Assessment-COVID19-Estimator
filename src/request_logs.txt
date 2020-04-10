@@ -61,3 +61,11 @@ POST		/api/v1/on-covid-19/json		200		0.014 ms
 POST		/api/v1/on-covid-19/xml		200		0.016 ms
 POST		/api/v1/on-covid-19/xml		200		0.075 ms
 POST		/api/v1/on-covid-19/xml		200		0.021 ms
+GET		/api/v1/on-covid-19/logs		200		0.072 ms
+GET		/api/v1/on-covid-19/logs		200		0.073 ms
+GET		/api/v1/on-covid-19/logs		200		0.074 ms
+GET		/api/v1/on-covid-19/logs		200		0.023 ms
+GET		/api/v1/on-covid-19/logs		200		0.013 ms
+GET		/api/v1/on-covid-19/logs		200		0.015 ms
+GET		/api/v1/on-covid-19/logs		200		0.078 ms
+GET		/api/v1/on-covid-19/logs		200		0.074 ms

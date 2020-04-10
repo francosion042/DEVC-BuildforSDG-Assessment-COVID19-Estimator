@@ -43,7 +43,8 @@ const routes = (app) => {
   app.get('/api/v1/on-covid-19/logs', (request, response) => {
     try {
       const filePath = path.join(__dirname, 'request_logs.txt');
-      const data = fs.readFileSync(filePath, 'utf8');
+      const data = fs.readFileSync(filePath, 'utf8').toString();
+      response.header('Content-Type', 'text/plain; charset=UTF-8');
       response.status(200).send(data);
     } catch (error) {
       throw new Error('Sorry, there was an issue reading the logs try');
