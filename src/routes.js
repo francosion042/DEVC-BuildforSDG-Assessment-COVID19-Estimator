@@ -6,7 +6,7 @@ const covid19ImpactEstimator = require('./estimator');
 
 
 const routes = (app) => {
-  app.get('/', (request, response) => response.status(200).json({
+  app.get('/api/v1/on-covid-19', (request, response) => response.status(200).json({
     success: true,
     message: 'Welcome to the Covid-19 Estimator API'
   }));
