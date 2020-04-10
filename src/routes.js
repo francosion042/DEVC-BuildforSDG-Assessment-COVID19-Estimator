@@ -2,7 +2,6 @@ const fs = require('fs');
 const path = require('path');
 const Xml2js = require('xml2js');
 
-// const jsontoxml = require('jsontoxml');
 const covid19ImpactEstimator = require('./estimator');
 
 const routes = (app) => {
