@@ -23,7 +23,7 @@ const availableBeds = (
 };
 
 // eslint-disable-next-line max-len
-const infectionProjections = (currentlyInfected, days) => Math.floor(currentlyInfected * (2 ** Math.trunc(days / 3)));
+const infectionProjections = (currentlyInfected, days) => currentlyInfected * (2 ** Math.floor(days / 3));
 
 const moneyLost = (
   infectionsByRequestedTime,
@@ -48,7 +48,7 @@ const impactEstimator = (
     numberOfDays
   );
   const severeCasesByRequestedTime = 0.15 * infectionsByRequestedTime;
-  const casesForVentilatorsByRequestedTime = 0.02 * infectionsByRequestedTime;
+  const casesForVentilatorsByRequestedTime = Math.floor(infectionsByRequestedTime * 0.02);
   const casesForICUByRequestedTime = Math.trunc(0.05 * infectionsByRequestedTime);
 
   return {
@@ -60,7 +60,7 @@ const impactEstimator = (
       severeCasesByRequestedTime
     ),
     casesForICUByRequestedTime,
-    casesForVentilatorsByRequestedTime: Number(casesForVentilatorsByRequestedTime.toString()),
+    casesForVentilatorsByRequestedTime,
     dollarsInFlight: moneyLost(
       infectionsByRequestedTime,
       region.avgDailyIncomePopulation,
