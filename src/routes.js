@@ -44,7 +44,7 @@ const routes = (app) => {
     fs.readFile(filePath, 'utf8', (err, data) => {
       if (err) console.log(err);
       response.header('Content-Type', 'text/plain; charset=UTF-8');
-      response.status(200).send(data);
+      response.status(200).send(`${data}`);
     });
   });
 
