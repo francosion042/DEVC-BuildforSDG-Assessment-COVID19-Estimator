@@ -27,3 +27,12 @@ POST		/api/v1/on-covid-19/json		200		0.076 ms
 POST		/api/v1/on-covid-19/json		200		0.018 ms
 POST		/api/v1/on-covid-19/json		200		0.014 ms
 POST		/api/v1/on-covid-19/json		200		0.014 ms
+POST		/api/v1/on-covid-19/json		200		0.015 ms
+POST		/api/v1/on-covid-19/json		200		0.026 ms
+POST		/api/v1/on-covid-19/json		200		0.008 ms
+POST		/api/v1/on-covid-19/json		200		0.009 ms
+POST		/api/v1/on-covid-19/json		200		0.079 ms
+POST		/api/v1/on-covid-19/json		200		0.014 ms
+POST		/api/v1/on-covid-19/json		200		0.012 ms
+POST		/api/v1/on-covid-19/json		200		0.081 ms
+POST		/api/v1/on-covid-19/json		200		0.121 ms
