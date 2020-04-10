@@ -23,7 +23,7 @@ const availableBeds = (
 };
 
 // eslint-disable-next-line max-len
-const infectionProjections = (currentlyInfected, days) => currentlyInfected * (2 ** Math.trunc(days / 3));
+const infectionProjections = (currentlyInfected, days) => Math.floor(currentlyInfected * (2 ** Math.trunc(days / 3)));
 
 const moneyLost = (
   infectionsByRequestedTime,
@@ -48,9 +48,6 @@ const impactEstimator = (
     numberOfDays
   );
   const severeCasesByRequestedTime = 0.15 * infectionsByRequestedTime;
-  const stripDecimal = (n) =>
-    // eslint-disable-next-line no-bitwise,implicit-arrow-linebreak
-    n | 0;
 
   return {
     currentlyInfected,
@@ -62,7 +59,7 @@ const impactEstimator = (
     ),
     casesForICUByRequestedTime: Math.trunc(0.05 * infectionsByRequestedTime),
     // eslint-disable-next-line radix
-    casesForVentilatorsByRequestedTime: stripDecimal(0.02 * infectionsByRequestedTime),
+    casesForVentilatorsByRequestedTime: 0.02 * infectionsByRequestedTime,
     dollarsInFlight: moneyLost(
       infectionsByRequestedTime,
       region.avgDailyIncomePopulation,
