@@ -49,7 +49,7 @@ const dollarsInFlight = (data, infections) => {
 };
 
 const hospitalBedsByRequestedTime = (data, severeCases) => {
-  const availableBeds = data.totalHospitalBeds * 0.35;
+  const availableBeds = 0.35 * data.totalHospitalBeds;
   return Math.trunc(availableBeds - severeCases);
 };
 module.exports = { infectionsByRequestedTime, dollarsInFlight, hospitalBedsByRequestedTime };

@@ -1,10 +1,10 @@
 const { infectionsByRequestedTime, dollarsInFlight, hospitalBedsByRequestedTime } = require('./helpers');
 
-const severeCasesByRequestedTime = ((cases) => Math.floor(cases * 0.15));
+const severeCasesByRequestedTime = ((cases) => Math.floor(0.15 * cases));
 
-const casesForICUByRequestedTime = ((cases) => Math.floor(cases * (5 / 100)));
+const casesForICUByRequestedTime = ((cases) => Math.floor((5 / 100) * cases));
 
-const casesForVentilatorsByRequestedTime = ((cases) => Math.floor(cases * (2 / 100)));
+const casesForVentilatorsByRequestedTime = ((cases) => Math.floor((2 / 100) * cases));
 
 
 const covid19ImpactEstimator = ((data) => {
