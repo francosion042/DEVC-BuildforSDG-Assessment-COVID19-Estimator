@@ -60,7 +60,7 @@ const impactEstimator = (
       severeCasesByRequestedTime
     ),
     casesForICUByRequestedTime,
-    casesForVentilatorsByRequestedTime: parseInt(casesForVentilatorsByRequestedTime.toString(), 10),
+    casesForVentilatorsByRequestedTime: Number(casesForVentilatorsByRequestedTime.toString()),
     dollarsInFlight: moneyLost(
       infectionsByRequestedTime,
       region.avgDailyIncomePopulation,
