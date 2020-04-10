@@ -1,55 +1,88 @@
-const { Big } = require('big.js');
+const fs = require('fs');
 
-const calculateEstimatedInfectionsByDays = (periodInDays, currentlyInfected) => {
-  const unitPeriod = Math.floor(periodInDays / 3);
-  return currentlyInfected * (2 ** unitPeriod);
-};
-
-// eslint-disable-next-line consistent-return
-const infectionsByRequestedTime = (data, currentlyInfected) => {
-  const period = Big(data.timeToElapse);
-  let result;
-  let periodInDays;
-  switch (data.periodType) {
-    case 'weeks':
-      periodInDays = period * 7;
-      result = calculateEstimatedInfectionsByDays(periodInDays, currentlyInfected);
-      break;
+const calcluateDays = (periodType, value) => {
+  switch (periodType) {
     case 'months':
-      periodInDays = period * 30;
-      result = calculateEstimatedInfectionsByDays(periodInDays, currentlyInfected);
-      break;
-    default:
-      result = currentlyInfected * (2 ** Math.floor(period / 3));
-      break;
-  }
-  return result;
-};
+      return value * 30;
 
-const dollarsInFlight = (data, infections) => {
-  let totalDollars;
-  let timeInDays;
-  const { avgDailyIncomePopulation } = data.region;
-  const { avgDailyIncomeInUSD } = data.region;
-  switch (data.periodType) {
     case 'weeks':
-      timeInDays = data.timeToElapse * 7;
-      totalDollars = infections * avgDailyIncomePopulation * avgDailyIncomeInUSD * timeInDays;
-      break;
-    case 'months':
-      timeInDays = data.timeToElapse * 30;
-      totalDollars = infections * avgDailyIncomePopulation * avgDailyIncomeInUSD * timeInDays;
-      break;
+      return value * 7;
+
     default:
-      timeInDays = data.timeToElapse;
-      totalDollars = infections * avgDailyIncomePopulation * avgDailyIncomeInUSD * timeInDays;
-      break;
+      return value;
   }
-  return Number(totalDollars.toFixed(2));
 };
 
-const hospitalBedsByRequestedTime = (data, severeCases) => {
-  const availableBeds = 0.35 * data.totalHospitalBeds;
-  return Math.trunc(availableBeds - severeCases);
+const availableBeds = (
+  totalHospitalBeds,
+  severeCasesByRequestedTime
+) => {
+  const occupied = 0.65 * totalHospitalBeds;
+  const available = totalHospitalBeds - occupied;
+  return Math.trunc(available - severeCasesByRequestedTime);
 };
-module.exports = { infectionsByRequestedTime, dollarsInFlight, hospitalBedsByRequestedTime };
+
+// eslint-disable-next-line max-len
+const infectionProjections = (currentlyInfected, days) => currentlyInfected * 2 ** Math.trunc(days / 3);
+
+const moneyLost = (
+  infectionsByRequestedTime,
+  percentageIncome,
+  avgIncome,
+  days
+) => {
+  const estimatedLoss = infectionsByRequestedTime * percentageIncome * avgIncome * days;
+  return parseFloat(estimatedLoss.toFixed(2));
+};
+
+const impactEstimator = (
+  {
+    reportedCases, totalHospitalBeds, periodType, timeToElapse, region
+  },
+  reportedCasesMultiplyer
+) => {
+  const numberOfDays = calcluateDays(periodType, timeToElapse);
+  const currentlyInfected = reportedCases * reportedCasesMultiplyer;
+  const infectionsByRequestedTime = infectionProjections(
+    currentlyInfected,
+    numberOfDays
+  );
+  const severeCasesByRequestedTime = 0.15 * infectionsByRequestedTime;
+
+  return {
+    currentlyInfected,
+    infectionsByRequestedTime,
+    severeCasesByRequestedTime,
+    hospitalBedsByRequestedTime: availableBeds(
+      totalHospitalBeds,
+      severeCasesByRequestedTime
+    ),
+    casesForICUByRequestedTime: Math.trunc(0.05 * infectionsByRequestedTime),
+    casesForVentilatorsByRequestedTime: Math.trunc(
+      0.02 * infectionsByRequestedTime
+    ),
+    dollarsInFlight: moneyLost(
+      infectionsByRequestedTime,
+      region.avgDailyIncomePopulation,
+      region.avgDailyIncomeInUSD,
+      numberOfDays
+    )
+  };
+};
+
+const getTimeInMilliseconds = (startTime) => {
+  const NS_PER_SEC = 1e9; // time in nano seconds
+  const NS_TO_MS = 1e6; // time in milli seconds
+  const timeDifference = process.hrtime(startTime);
+  return (timeDifference[0] * NS_PER_SEC + timeDifference[1]) / NS_TO_MS;
+};
+
+const saveToFile = (data, filename) => {
+  fs.appendFile(filename, `${data}\n`, (err) => {
+    if (err) {
+      throw new Error('The data could not be saved');
+    }
+  });
+};
+
+module.exports = { impactEstimator, getTimeInMilliseconds, saveToFile };
