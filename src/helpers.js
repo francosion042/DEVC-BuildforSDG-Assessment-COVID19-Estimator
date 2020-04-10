@@ -31,8 +31,8 @@ const moneyLost = (
   avgIncome,
   days
 ) => {
-  const estimatedLoss = infectionsByRequestedTime * percentageIncome * avgIncome * days;
-  return parseFloat(estimatedLoss.toFixed(2));
+  const estimatedLoss = (infectionsByRequestedTime * percentageIncome * avgIncome) / days;
+  return Math.trunc(estimatedLoss);
 };
 
 const impactEstimator = (
