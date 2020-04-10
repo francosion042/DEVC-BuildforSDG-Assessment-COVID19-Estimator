@@ -3,20 +3,38 @@ const path = require('path');
 const Xml2js = require('xml2js');
 
 // const jsontoxml = require('jsontoxml');
-const { formatAPIResponse, jsonResponse } = require('./estimator');
+const covid19ImpactEstimator = require('./estimator');
 
 const routes = (app) => {
   app.get('/api/v1/on-covid-19', (request, response) => response.status(200).json({
     success: true,
     message: 'Welcome to the Covid-19 Estimator API'
   }));
-  app.post('/api/v1/on-covid-19', jsonResponse);
+  app.post('/api/v1/on-covid-19', (req, res) => {
+    const data = {};
+    data.region = req.body.region;
+    data.periodType = req.body.periodType;
+    data.timeToElapse = req.body.timeToElapse;
+    data.reportedCases = req.body.reportedCases;
+    data.population = req.body.population;
+    data.totalHospitalBeds = req.body.totalHospitalBeds;
+    res.send(covid19ImpactEstimator(data));
+  });
 
-  app.post('/api/v1/on-covid-19/json', jsonResponse);
+  app.post('/api/v1/on-covid-19/json', (req, res) => {
+    const data = {};
+    data.region = req.body.region;
+    data.periodType = req.body.periodType;
+    data.timeToElapse = req.body.timeToElapse;
+    data.reportedCases = req.body.reportedCases;
+    data.population = req.body.population;
+    data.totalHospitalBeds = req.body.totalHospitalBeds;
+    res.send(covid19ImpactEstimator(data));
+  });
 
   app.post('/api/v1/on-covid-19/xml', (request, response) => {
     const data = request.body;
-    const estimation = formatAPIResponse(data);
+    const estimation = covid19ImpactEstimator(data);
     const builder = new Xml2js.Builder();
     response.header('Content-Type', 'application/xml; charset=UTF-8');
     response.status(200).send(builder.buildObject(estimation));
