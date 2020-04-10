@@ -4,3 +4,4 @@
 "GET		/api/v1/on-covid-19/logs		200		0.08 ms"
 "GET		/api/v1/on-covid-19/logs		200		0.074 ms"
 "GET		/api/v1/on-covid-19/logs		200		0.016 ms"
+"GET		/api/v1/on-covid-19/logs		200		0.076 ms"
