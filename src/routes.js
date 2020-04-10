@@ -41,8 +41,8 @@ const routes = (app) => {
     data.reportedCases = req.body.reportedCases;
     data.population = req.body.population;
     data.totalHospitalBeds = req.body.totalHospitalBeds;
-
-    res.send(jsontoxml(covid19ImpactEstimator(data)));
+    res.header('content-type', 'application/xml');
+    res.status(200).send(jsontoxml(covid19ImpactEstimator(data)));
   });
 
   app.get('/api/v1/on-covid-19/logs', (request, response) => {
