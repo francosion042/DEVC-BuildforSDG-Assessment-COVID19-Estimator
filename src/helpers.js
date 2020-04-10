@@ -48,6 +48,8 @@ const impactEstimator = (
     numberOfDays
   );
   const severeCasesByRequestedTime = 0.15 * infectionsByRequestedTime;
+  const casesForVentilatorsByRequestedTime = 0.02 * infectionsByRequestedTime;
+  const casesForICUByRequestedTime = Math.trunc(0.05 * infectionsByRequestedTime);
 
   return {
     currentlyInfected,
@@ -57,9 +59,8 @@ const impactEstimator = (
       totalHospitalBeds,
       severeCasesByRequestedTime
     ),
-    casesForICUByRequestedTime: Math.trunc(0.05 * infectionsByRequestedTime),
-    // eslint-disable-next-line radix
-    casesForVentilatorsByRequestedTime: 0.02 * infectionsByRequestedTime,
+    casesForICUByRequestedTime,
+    casesForVentilatorsByRequestedTime: parseInt(casesForVentilatorsByRequestedTime.toString(), 10),
     dollarsInFlight: moneyLost(
       infectionsByRequestedTime,
       region.avgDailyIncomePopulation,
