@@ -1,3 +1,5 @@
+const { Big } = require('big.js');
+
 const calculateEstimatedInfectionsByDays = (periodInDays, currentlyInfected) => {
   const unitPeriod = Math.floor(periodInDays / 3);
   return currentlyInfected * (2 ** unitPeriod);
@@ -5,7 +7,7 @@ const calculateEstimatedInfectionsByDays = (periodInDays, currentlyInfected) => 
 
 // eslint-disable-next-line consistent-return
 const infectionsByRequestedTime = (data, currentlyInfected) => {
-  const period = data.timeToElapse;
+  const period = Big(data.timeToElapse);
   let result;
   let periodInDays;
   switch (data.periodType) {

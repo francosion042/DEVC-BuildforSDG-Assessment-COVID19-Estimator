@@ -1,12 +1,12 @@
-// const { Big } = require('big.js');
+const { Big } = require('big.js');
 
 const { infectionsByRequestedTime, dollarsInFlight, hospitalBedsByRequestedTime } = require('./helpers');
 
-const severeCasesByRequestedTime = ((cases) => Math.floor(cases * 0.15));
+const severeCasesByRequestedTime = ((cases) => Math.floor(Big(cases) * 0.15));
 
-const casesForICUByRequestedTime = ((cases) => Math.floor(cases * 0.05));
+const casesForICUByRequestedTime = ((cases) => Math.floor(Big(cases) * 0.05));
 
-const casesForVentilatorsByRequestedTime = ((cases) => Math.floor(cases * 0.02));
+const casesForVentilatorsByRequestedTime = ((cases) => Math.floor(Big(cases) * 0.02));
 
 
 const covid19ImpactEstimator = ((data) => {
