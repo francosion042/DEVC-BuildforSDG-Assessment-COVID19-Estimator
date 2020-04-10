@@ -58,7 +58,7 @@ const impactEstimator = (
       severeCasesByRequestedTime
     ),
     casesForICUByRequestedTime: Math.trunc(0.05 * infectionsByRequestedTime),
-    casesForVentilatorsByRequestedTime: 0.02 * infectionsByRequestedTime,
+    casesForVentilatorsByRequestedTime: Math.floor(0.02 * infectionsByRequestedTime),
     dollarsInFlight: moneyLost(
       infectionsByRequestedTime,
       region.avgDailyIncomePopulation,
