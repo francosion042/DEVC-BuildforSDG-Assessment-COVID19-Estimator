@@ -1,8 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 
-const routes = require('./routes');
-const requestLogger = require('./logger');
+const routes = require('./src/routes');
+const requestLogger = require('./src/logger');
 
 const port = process.env.PORT || 3000;
 
