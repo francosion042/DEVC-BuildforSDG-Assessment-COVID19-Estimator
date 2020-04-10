@@ -23,7 +23,11 @@ const availableBeds = (
 };
 
 // eslint-disable-next-line max-len
-const infectionProjections = (currentlyInfected, days) => currentlyInfected * (2 ** Math.floor(days / 3));
+const infectionProjections = (currentlyInfected, days) => {
+  const projection = currentlyInfected * (2 ** Math.trunc(days / 3));
+  return projection;
+};
+module.exports = infectionProjections;
 
 const moneyLost = (
   infectionsByRequestedTime,
