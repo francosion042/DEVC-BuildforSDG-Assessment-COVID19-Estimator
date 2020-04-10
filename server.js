@@ -37,4 +37,4 @@ if (process.env.NODE_ENV !== 'test') {
 /* eslint-disable-next-line */
 console.log("app running on port ", port);
 
-module.exports = app;
+// module.exports = app;
