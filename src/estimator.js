@@ -1,3 +1,9 @@
-const covid19ImpactEstimator = (data) => data;
+const { impactEstimator } = require('./helpers');
 
-export default covid19ImpactEstimator;
+const covid19ImpactEstimator = ((data) => {
+  const impact = impactEstimator({ ...data }, 10);
+  const severeImpact = impactEstimator({ ...data }, 50);
+  return { data, impact, severeImpact };
+});
+
+module.exports = covid19ImpactEstimator;
